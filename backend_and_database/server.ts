@@ -7,8 +7,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
-import connectDB from "./config/dbNoteApp";
-import corsOptions from "./config/corsOptions";
+import connectDB from "./config/config.database";
+import corsOptions from "./config/config.corsOptions";
 //import adminRoutes from "./routes/admins";
 //import userRoutes from "./routes/users";
 import authRoute from "./routes/auth"
