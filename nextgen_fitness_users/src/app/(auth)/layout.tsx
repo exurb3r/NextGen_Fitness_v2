@@ -2,6 +2,7 @@ import type { Metadata, Viewport} from "next";
 import { Providers } from "../providers";
 import { Inter, Poppins } from "next/font/google";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GymLogo } from "@/shared/MainIcon/MainIcon";
 import logo from "../../../public/images/icons/gymlogo.png"
 import "../globals.css";
 
@@ -49,8 +50,8 @@ const displayFont = Poppins({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${bodyFont.variable} ${displayFont.variable}`}>
-      <body>
+    <Box className={`${bodyFont.variable} ${displayFont.variable}`}>
+      <Box>
         <Providers>
           <Box
             component="header"
@@ -73,18 +74,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   height: 64,
                 }}
               >
-                <Typography
-                  variant="h3"
+                  <Box 
                   sx={{
-                    color: "accent",
-                    letterSpacing: "-0.01em",
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center"
                   }}
-                >
-                  NextGen
-                  <Box component="span" sx={{ color: "text.primary" }}>
-                    Fitness
+                  >
+                    <GymLogo/>
+                    <Typography
+                      variant="h3"
+                      sx={{ color: "accent", letterSpacing: "-0.01em" }}
+                    >
+                      NextGen
+                      <Box component="span" sx={{ color: "text.primary" }}>
+                        Fitness
+                      </Box>
+                    </Typography>
                   </Box>
-                </Typography>
                 <ThemeToggle />
               </Box>
             </Container>
@@ -92,7 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {children}
         </Providers>
-      </body>
-    </html>
+      </Box>
+    </Box>
   );
 }

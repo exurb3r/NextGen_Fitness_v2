@@ -17,7 +17,7 @@ import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
 import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
 import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
-
+import { GymLogo } from "@/shared/MainIcon/MainIcon";
 
 import background from "../../public/images/backgrounds/gymbackground.png";
 import NavButton from "../shared/Buttons/NavButton";
@@ -82,15 +82,24 @@ export default function Home() {
               height: 64,
             }}
           >
-            <Typography
-              variant="h3"
-              sx={{ color: "accent", letterSpacing: "-0.01em" }}
+            <Box 
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center"
+            }}
             >
-              NextGen
-              <Box component="span" sx={{ color: "text.primary" }}>
-                Fitness
-              </Box>
-            </Typography>
+              <GymLogo/>
+              <Typography
+                variant="h3"
+                sx={{ color: "accent", letterSpacing: "-0.01em" }}
+              >
+                NextGen
+                <Box component="span" sx={{ color: "text.primary" }}>
+                  Fitness
+                </Box>
+              </Typography>
+            </Box>
 
             <Box>
               <NavButton route="/login" className="!h-10 !px-6 !text-sm !shadow-none">
