@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Box } from '@mui/material';
 import logo from "../../../public/images/icons/gymlogo.png"
 
 const geistSans = Geist({
@@ -31,11 +32,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
+    <Box
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
+      <Box className="min-h-full flex flex-col">{children}</Box>
+    </Box>
   );
 }

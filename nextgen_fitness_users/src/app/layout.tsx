@@ -2,6 +2,7 @@ import type { Metadata, Viewport} from "next";
 import { Providers } from "./providers";
 import { Inter, Poppins } from "next/font/google";
 import { Geist, Geist_Mono } from "next/font/google";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import logo from "../../public/images/icons/gymlogo.png"
 import "./globals.css";
 
@@ -41,7 +42,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${bodyFont.variable} ${displayFont.variable}`}>
       <body>
-        <Providers>{children}</Providers>
+        <AppRouterCacheProvider>        
+          <Providers>
+            {children}
+          </Providers>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
