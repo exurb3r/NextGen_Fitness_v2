@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Alert,
   Box,
@@ -13,6 +14,7 @@ import {
 } from "@mui/material";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,7 +27,7 @@ export default function LoginPage() {
     setError("");
     setLoading(true);
 
-    // TODO: Login
+    router.push("/home");
 
     setTimeout(() => {
       setLoading(false);
