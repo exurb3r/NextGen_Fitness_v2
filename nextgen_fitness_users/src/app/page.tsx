@@ -21,6 +21,7 @@ import { GymLogo } from "@/shared/MainIcon/MainIcon";
 
 import background from "@/assets/backgrounds/gymbackground.png";
 import NavButton from "../shared/Buttons/NavButton";
+import InstallButton from "@/components/installButton/InstallButton";
 
 const FEATURES = [
   {
@@ -105,6 +106,7 @@ export default function Home() {
             </Box>
 
             <Box>
+              <InstallButton/>
               <NavButton route="/login" className="!h-10 !px-6 !text-sm !shadow-none">
                 Log in
               </NavButton>

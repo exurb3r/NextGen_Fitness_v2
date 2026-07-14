@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   description: "Gym Management System",
   icons: {
     icon: logo.src,
+    apple: logo.src,
   },
 };
 
