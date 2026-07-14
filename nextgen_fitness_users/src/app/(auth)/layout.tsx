@@ -81,7 +81,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     alignItems: "center"
                   }}
                   >
-                    <GymLogo/>
+                    <GymLogo
+                      width={50}
+                      height={50}
+                    />
                     <Typography
                       variant="h3"
                       sx={{ color: "accent", letterSpacing: "-0.01em" }}

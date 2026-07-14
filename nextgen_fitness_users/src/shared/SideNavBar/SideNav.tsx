@@ -14,7 +14,7 @@ import Button from "@mui/material/Button";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-
+import { GymLogo } from "@/shared/MainIcon/MainIcon";
 // Adjust this import to wherever your logo actually lives.
 import logo from "../../../public/images/logos/blacklogo.png";
 import { NAV_SECTIONS, DRAWER_WIDTH } from "./constants/constants.sideNav";
@@ -43,7 +43,7 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
         bgcolor: "background.paper",
       }}
     >
-      {/* Brand */}
+      {/* Brand — now sitting on a soft purple gradient instead of flat white */}
       <Box
         sx={{
           display: "flex",
@@ -51,19 +51,41 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
           gap: 1.5,
           px: 2,
           py: 2.5,
+          background: (theme) => theme.palette.gradient.subtle,
           borderBottom: "1px solid",
           borderColor: "border",
         }}
       >
-        <Image
-          src={logo}
-          alt="Armzstrong Logo"
-          width={34}
-          height={34}
-          style={{ borderRadius: 8, objectFit: "contain" }}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 42,
+            height: 42,
+            borderRadius: 2.5,
+            background: (theme) => theme.palette.gradient.primary,
+            boxShadow: "0 4px 12px -2px rgb(124 58 237 / 0.35)",
+            flexShrink: 0,
+          }}
+        >
+        <GymLogo
+          width={42}
+          height={42}
         />
+        </Box>
         <Box>
-          <Typography sx={{ fontSize: "1rem", fontWeight: 600, lineHeight: 1.2 }}>
+          <Typography
+            sx={{
+              fontSize: "1rem",
+              fontWeight: 700,
+              lineHeight: 1.2,
+              background: (theme) => theme.palette.gradient.primary,
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
             Armzstrong
           </Typography>
           <Typography variant="caption" color="text.secondary">
@@ -85,8 +107,9 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
                 pb: 0.75,
                 letterSpacing: "1px",
                 textTransform: "uppercase",
-                fontWeight: 600,
-                color: "text.secondary",
+                fontWeight: 700,
+                fontSize: "0.6875rem",
+                color: "purple.400",
               }}
             >
               {section.label}
@@ -103,23 +126,49 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
                       if (!isDesktop) onClose();
                     }}
                     sx={{
+                      position: "relative",
                       borderRadius: 2,
                       mb: 0.25,
                       py: 1,
                       color: active ? "primary.main" : "text.secondary",
-                      "&:hover": { bgcolor: "surfaceHover" },
+                      transition: "background-color 0.15s ease, color 0.15s ease",
+                      "&:hover": {
+                        bgcolor: "surfaceHover",
+                        color: "primary.main",
+                      },
                       "&.Mui-selected": {
                         bgcolor: "accentSecondary",
+                        fontWeight: 600,
                         "&:hover": { bgcolor: "accentSecondary" },
+                        "&::before": {
+                          content: '""',
+                          position: "absolute",
+                          left: -6,
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          width: 4,
+                          height: 20,
+                          borderRadius: 4,
+                          background: (theme) => theme.palette.gradient.primary,
+                        },
                       },
                     }}
                   >
-                    <ListItemIcon sx={{ minWidth: 36, color: "inherit" }}>
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 36,
+                        color: active ? "primary.main" : "inherit",
+                      }}
+                    >
                       <link.icon fontSize="small" />
                     </ListItemIcon>
                     <ListItemText
                       primary={link.label}
-                      slotProps={{ primary: { sx: { fontSize: 14, fontWeight: 500 } } }}
+                      slotProps={{
+                        primary: {
+                          sx: { fontSize: 14, fontWeight: active ? 600 : 500 },
+                        },
+                      }}
                     />
                   </ListItemButton>
                 );
@@ -140,7 +189,16 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
               color="error"
               startIcon={<LogoutOutlinedIcon />}
               onClick={onLogout}
-              sx={{ justifyContent: "flex-start", px: 1.5 }}
+              sx={{
+                justifyContent: "flex-start",
+                px: 1.5,
+                borderColor: "border",
+                "&:hover": {
+                  borderColor: "error.main",
+                  bgcolor: "error.main",
+                  color: "error.contrastText",
+                },
+              }}
             >
               Log Out
             </Button>
@@ -165,6 +223,7 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
           border: "none",
           borderRight: isDesktop ? "1px solid" : "none",
           borderColor: "border",
+          boxShadow: isDesktop ? "none" : "0 0 24px rgba(0,0,0,0.12)",
         },
       }}
     >

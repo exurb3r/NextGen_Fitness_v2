@@ -10,8 +10,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
 import Sidebar from "@/shared/SideNavBar/SideNav";
-import { DRAWER_WIDTH } from "@/shared/SideNavBar/constants/constants.sideNav";
-import { Providers } from '../providers';
+import { DRAWER_WIDTH } from "@/shared/SideNavBar/constants/constants.sideNav";;
 
 export default function DashboardLayout({
   children,
@@ -24,7 +23,6 @@ export default function DashboardLayout({
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>
-      <Providers>
         {!isDesktop && (
           <AppBar
             position="fixed"
@@ -57,7 +55,6 @@ export default function DashboardLayout({
         >
           {children}
         </Box>
-      </Providers>
     </Box>
   );
 }

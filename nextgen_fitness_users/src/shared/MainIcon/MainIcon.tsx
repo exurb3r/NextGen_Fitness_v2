@@ -11,7 +11,7 @@ interface GymLogoProps {
   alt?: string;
 }
 
-export function GymLogo({ width = 50, height = 50, alt = "Logo" }: GymLogoProps) {
+export function GymLogo({ width, height, alt = "Logo" }: GymLogoProps) {
   const { mode } = useColorMode();
 
   return (
