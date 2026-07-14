@@ -19,7 +19,7 @@ import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import { GymLogo } from "@/shared/MainIcon/MainIcon";
 
-import background from "../../public/images/backgrounds/gymbackground.png";
+import background from "@/assets/backgrounds/gymbackground.png";
 import NavButton from "../shared/Buttons/NavButton";
 
 const FEATURES = [

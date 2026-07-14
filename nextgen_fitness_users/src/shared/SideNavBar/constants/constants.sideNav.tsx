@@ -12,7 +12,9 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 import { NavSection } from "../types/types.sideNav";
 
-export const DRAWER_WIDTH = 240;
+export const DRAWER_WIDTH = 240;          // expanded (hover) width
+export const DRAWER_WIDTH_COLLAPSED = 76; // icon-only rail width
+export const DRAWER_TRANSITION_MS = 200;
 
 export const NAV_SECTIONS: NavSection[] = [
   {

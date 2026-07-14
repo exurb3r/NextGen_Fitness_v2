@@ -1,12 +1,6 @@
-// Import required dependencies
 import { TypographyVariantsOptions as MuiTypographyOptions } from "@mui/material/styles";
 import React from "react";
 
-// ============================================================================
-// Type Declarations
-// ============================================================================
-
-// Extend MUI Typography variants with our simplified custom variants
 declare module "@mui/material/styles" {
   interface TypographyVariants {
     display: React.CSSProperties;
@@ -31,10 +25,8 @@ declare module "@mui/material/styles" {
   }
 }
 
-// Configure which typography variants are available on <Typography variant="...">
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
-    // Enable our variants
     display: true;
     h1: true;
     h2: true;
@@ -43,7 +35,7 @@ declare module "@mui/material/Typography" {
     bodySmall: true;
     label: true;
     caption: true;
-    // Disable MUI defaults we're not using, so they can't be picked by mistake
+    // Disabled MUI defaults
     h4: false;
     h5: false;
     h6: false;
@@ -55,21 +47,10 @@ declare module "@mui/material/Typography" {
   }
 }
 
-// ============================================================================
-// Font Configuration (Using CSS Variables)
-// ============================================================================
-
-// These CSS variables should be defined in layout.tsx via your font loaders
-// (next/font, @font-face, etc). Swap the two family names for whatever
-// fonts you're actually using.
 const font_vars = {
   display: "var(--font-display), sans-serif", // headings / display
   body: "var(--font-body), sans-serif",       // paragraphs, labels, captions
 };
-
-// ============================================================================
-// Typography System Configuration
-// ============================================================================
 
 interface TypographyStyle {
   fontSize: string;

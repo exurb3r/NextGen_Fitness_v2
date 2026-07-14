@@ -3,7 +3,7 @@ import { Providers } from "../providers";
 import { Inter, Poppins } from "next/font/google";
 import { Geist, Geist_Mono } from "next/font/google";
 import { GymLogo } from "@/shared/MainIcon/MainIcon";
-import logo from "../../../public/images/icons/gymlogo.png"
+import logo from "@/assets/icons/gymlogo.png"
 import "../globals.css";
 
 import {

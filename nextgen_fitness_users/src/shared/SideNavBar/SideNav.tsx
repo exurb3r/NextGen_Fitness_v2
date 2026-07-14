@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Box from "@mui/material/Box";
@@ -11,13 +12,18 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import { GymLogo } from "@/shared/MainIcon/MainIcon";
-// Adjust this import to wherever your logo actually lives.
-import logo from "../../../public/images/logos/blacklogo.png";
-import { NAV_SECTIONS, DRAWER_WIDTH } from "./constants/constants.sideNav";
+
+import logo from "@/assets/icons/johnpork.jpg";
+import {
+  NAV_SECTIONS,
+  DRAWER_WIDTH,
+  DRAWER_WIDTH_COLLAPSED,
+  DRAWER_TRANSITION_MS,
+} from "./constants/constants.sideNav";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -30,30 +36,43 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
   const router = useRouter();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+  const [expanded, setExpanded] = useState(false);
+
+  const showLabels = isDesktop ? expanded : true;
+  const currentWidth = isDesktop
+    ? expanded
+      ? DRAWER_WIDTH
+      : DRAWER_WIDTH_COLLAPSED
+    : DRAWER_WIDTH;
 
   const isLinkActive = (path: string) =>
     path === "/dashboard" ? pathname === path : pathname?.startsWith(path);
 
   const content = (
     <Box
+      onMouseEnter={() => isDesktop && setExpanded(true)}
+      onMouseLeave={() => isDesktop && setExpanded(false)}
       sx={{
         display: "flex",
         flexDirection: "column",
         height: "100%",
         bgcolor: "background.paper",
+        overflow: "hidden",
       }}
     >
-      {/* Brand — now sitting on a soft purple gradient instead of flat white */}
+      {/* Brand */}
       <Box
         sx={{
           display: "flex",
           alignItems: "center",
           gap: 1.5,
-          px: 2,
+          px: showLabels ? 2 : 0,
           py: 2.5,
+          justifyContent: showLabels ? "flex-start" : "center",
           background: (theme) => theme.palette.gradient.subtle,
           borderBottom: "1px solid",
           borderColor: "border",
+          transition: `padding ${DRAWER_TRANSITION_MS}ms ease`,
         }}
       >
         <Box
@@ -69,12 +88,23 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
             flexShrink: 0,
           }}
         >
-        <GymLogo
-          width={42}
-          height={42}
-        />
+          <Image
+            src={logo}
+            alt="Armzstrong Logo"
+            width={32}
+            height={32}
+            style={{ borderRadius: 25, objectFit: "contain" }}
+          />
         </Box>
-        <Box>
+        <Box
+          sx={{
+            opacity: showLabels ? 1 : 0,
+            width: showLabels ? "auto" : 0,
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            transition: `opacity ${DRAWER_TRANSITION_MS}ms ease`,
+          }}
+        >
           <Typography
             sx={{
               fontSize: "1rem",
@@ -86,16 +116,43 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
               WebkitTextFillColor: "transparent",
             }}
           >
-            Armzstrong
+            John Pork
           </Typography>
-          <Typography variant="caption" color="text.secondary">
-            Fitness Tracker
+          <Typography variant="caption" color="text.secondary" noWrap>
+            johnporky@gmail.com
           </Typography>
         </Box>
       </Box>
 
       {/* Nav */}
-      <Box sx={{ flex: 1, overflowY: "auto", py: 1 }}>
+      <Box
+        sx={{
+          flex: 1,
+          overflowY: showLabels ? "auto" : "hidden",
+          overflowX: "hidden",
+          py: 1,
+          direction: "rtl",
+          "& > *": {
+            direction: "ltr",
+          },
+          "&::-webkit-scrollbar": {
+            width: 4,
+          },
+          "&::-webkit-scrollbar-track": {
+            background: "transparent",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "purple.200",
+            borderRadius: 4,
+          },
+          "&::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: "purple.300",
+          },
+          scrollbarWidth: "thin",
+          scrollbarColor: (theme) =>
+            `${theme.palette.purple[200]} transparent`,
+        }}
+      >
         {NAV_SECTIONS.map((section) => (
           <Box key={section.label} sx={{ mb: 0.5 }}>
             <Typography
@@ -110,14 +167,17 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
                 fontWeight: 700,
                 fontSize: "0.6875rem",
                 color: "purple.400",
+                whiteSpace: "nowrap",
+                opacity: showLabels ? 1 : 0,
+                transition: `opacity ${DRAWER_TRANSITION_MS}ms ease`,
               }}
             >
-              {section.label}
+              {showLabels ? section.label : "•"}
             </Typography>
             <List disablePadding sx={{ px: 1.5 }}>
               {section.links.map((link) => {
                 const active = isLinkActive(link.path);
-                return (
+                const item = (
                   <ListItemButton
                     key={link.path}
                     selected={active}
@@ -130,8 +190,10 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
                       borderRadius: 2,
                       mb: 0.25,
                       py: 1,
+                      minHeight: 44,
+                      justifyContent: showLabels ? "flex-start" : "center",
                       color: active ? "primary.main" : "text.secondary",
-                      transition: "background-color 0.15s ease, color 0.15s ease",
+                      transition: `background-color ${DRAWER_TRANSITION_MS}ms ease, color ${DRAWER_TRANSITION_MS}ms ease`,
                       "&:hover": {
                         bgcolor: "surfaceHover",
                         color: "primary.main",
@@ -156,21 +218,36 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
                   >
                     <ListItemIcon
                       sx={{
-                        minWidth: 36,
+                        minWidth: showLabels ? 36 : "auto",
                         color: active ? "primary.main" : "inherit",
+                        justifyContent: "center",
                       }}
                     >
                       <link.icon fontSize="small" />
                     </ListItemIcon>
-                    <ListItemText
-                      primary={link.label}
-                      slotProps={{
-                        primary: {
-                          sx: { fontSize: 14, fontWeight: active ? 600 : 500 },
-                        },
-                      }}
-                    />
+                    {showLabels && (
+                      <ListItemText
+                        primary={link.label}
+                        slotProps={{
+                          primary: {
+                            sx: {
+                              fontSize: 14,
+                              fontWeight: active ? 600 : 500,
+                              whiteSpace: "nowrap",
+                            },
+                          },
+                        }}
+                      />
+                    )}
                   </ListItemButton>
+                );
+
+                return showLabels ? (
+                  item
+                ) : (
+                  <Tooltip key={link.path} title={link.label} placement="right">
+                    {item}
+                  </Tooltip>
                 );
               })}
             </List>
@@ -178,7 +255,7 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
         ))}
       </Box>
 
-      {/* Logout — only rendered if the parent wires up onLogout */}
+      {/* Logout */}
       {onLogout && (
         <>
           <Divider sx={{ borderColor: "border" }} />
@@ -187,11 +264,12 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
               fullWidth
               variant="outlined"
               color="error"
-              startIcon={<LogoutOutlinedIcon />}
+              startIcon={showLabels ? <LogoutOutlinedIcon /> : undefined}
               onClick={onLogout}
               sx={{
-                justifyContent: "flex-start",
+                justifyContent: showLabels ? "flex-start" : "center",
                 px: 1.5,
+                minWidth: 0,
                 borderColor: "border",
                 "&:hover": {
                   borderColor: "error.main",
@@ -200,7 +278,7 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
                 },
               }}
             >
-              Log Out
+              {showLabels ? "Log Out" : <LogoutOutlinedIcon fontSize="small" />}
             </Button>
           </Box>
         </>
@@ -213,17 +291,23 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
       variant={isDesktop ? "permanent" : "temporary"}
       open={isDesktop ? true : isOpen}
       onClose={onClose}
-      ModalProps={{ keepMounted: true }} // better mobile open perf
+      ModalProps={{ keepMounted: true }}
       sx={{
-        width: isDesktop ? DRAWER_WIDTH : 0,
+        width: isDesktop ? DRAWER_WIDTH_COLLAPSED : 0,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          width: DRAWER_WIDTH,
+          width: currentWidth,
           boxSizing: "border-box",
           border: "none",
           borderRight: isDesktop ? "1px solid" : "none",
           borderColor: "border",
-          boxShadow: isDesktop ? "none" : "0 0 24px rgba(0,0,0,0.12)",
+          boxShadow: isDesktop
+            ? expanded
+              ? "0 8px 30px -6px rgba(0,0,0,0.18)"
+              : "none"
+            : "0 0 24px rgba(0,0,0,0.12)",
+          transition: `width ${DRAWER_TRANSITION_MS}ms ease, box-shadow ${DRAWER_TRANSITION_MS}ms ease`,
+          zIndex: (theme) => theme.zIndex.drawer + (expanded ? 1 : 0),
         },
       }}
     >

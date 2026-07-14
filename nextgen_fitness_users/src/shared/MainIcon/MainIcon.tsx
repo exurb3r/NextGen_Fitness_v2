@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useColorMode } from "../../app/providers";
-import logoLight from "../../../public/images/logos/blacklogo.png"; // light mode logo
-import logoDark from "../../../public/images/logos/whitelogo.png";  // dark mode logo
+import logoLight from "@/assets/logos/blacklogo.png"; // light mode logo
+import logoDark from "@/assets/logos/whitelogo.png";  // dark mode logo
 
 interface GymLogoProps {
   width?: number;

@@ -1,65 +1,150 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import ConstructionRoundedIcon from "@mui/icons-material/ConstructionRounded";
+import illustration from "@/assets/backgrounds/underConstruction.svg";
+
+export default function UnderConstruction() {
+  const router = useRouter();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <Box
+      sx={{
+        position: "relative",
+        minHeight: "100vh",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: (theme) => theme.palette.gradient.subtle,
+      }}
+    >
+      {/* Center Background Illustration */}
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 0,
+          pointerEvents: "none",
+          opacity: { xs: 0.55, md: 0.65 }
+        }}
+      >
+        <Box
+          sx={{
+            width: {
+              xs: "90%",
+              sm: "75%",
+              md: "55%",
+              lg: "45%",
+            },
+            maxWidth: 700,
+          }}
+        >
+          <Image
+            src={illustration}
+            alt=""
+            priority
+            style={{
+              width: "100%",
+              height: "auto",
+            }}
+          />
+        </Box>
+      </Box>
+
+      {/* Content */}
+      <Box
+        sx={{
+          position: "relative",
+          zIndex: 1,
+          textAlign: "center",
+          px: 3,
+          maxWidth: 700,
+        }}
+      >
+        <ConstructionRoundedIcon
+          sx={{
+            fontSize: 72,
+            color: "primary.main",
+            mb: 2,
+          }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        <Typography
+          sx={{
+            fontSize: {
+              xs: "2.5rem",
+              sm: "3.5rem",
+              md: "4.5rem",
+            },
+            fontWeight: 800,
+            lineHeight: 1.1,
+            background: (theme) => theme.palette.gradient.primary,
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          Under Construction
+        </Typography>
+
+        <Typography
+          variant="h3"
+          sx={{
+            mt: 3,
+            fontWeight: 600,
+          }}
+        >
+          We're building something better.
+        </Typography>
+
+        <Typography
+          color="text.secondary"
+          sx={{
+            mt: 2,
+            mb: 5,
+            maxWidth: 520,
+            mx: "auto",
+            fontSize: {
+              xs: "0.95rem",
+              md: "1.05rem",
+            },
+          }}
+        >
+          This page is currently being developed and will be available soon.
+          Thank you for your patience while we put the finishing touches on it.
+        </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          <Button
+            variant="contained"
+            onClick={() => router.back()}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
+            Go Back
+          </Button>
+
+          <Button
+            variant="outlined"
+            onClick={() => router.push("/home")}
+          >
             Home
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+          </Button>
+        </Box>
+      </Box>
+    </Box>
   );
 }
