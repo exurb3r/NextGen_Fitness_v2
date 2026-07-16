@@ -3,13 +3,13 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'NextGen Fitness App',
-    short_name: 'NextGen',
+    name: 'NextGen Fitness Progressive App',
+    short_name: 'NextGen Fitness',
     description: 'Thesis Prototype',
-    start_url: '/',
+    start_url: '/login',
     display: 'standalone',
-    background_color: '#ffffff',
-    theme_color: '#317EFB',
+    background_color: '#6f00ffaf',
+    theme_color: '#8831fb',
     icons: [
       {
         src: '/icon-192.png',
