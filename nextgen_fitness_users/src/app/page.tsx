@@ -61,14 +61,14 @@ export default function Home() {
         bgcolor: "background.default",
       }}
     >
-      {/* ---------- Header ---------- */}
+
       <Box
         component="header"
         sx={{
           position: "sticky",
           top: 0,
           zIndex: 10,
-          bgcolor: "primary.main",  
+          bgcolor: "primary.main",
           borderBottom: "1px solid",
           borderColor: "border",
           pt: "env(safe-area-inset-top)",
@@ -83,34 +83,22 @@ export default function Home() {
               height: 64,
             }}
           >
-            <Box 
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center"
-            }}
-            >
-              <GymLogo
-                width={50}
-                height={50}
-              />
-              <Typography
-                variant="h3"
-                sx={{ color: "accent", letterSpacing: "-0.01em" }}
-              >
+            <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 1 }}>
+              <GymLogo width={50} height={50} />
+              <Typography variant="h3" sx={{ color: "accent", letterSpacing: "-0.01em" }}>
                 NextGen
                 <Box component="span" sx={{ color: "text.primary" }}>
                   Fitness
                 </Box>
               </Typography>
             </Box>
-
-            <Box>
-              <InstallButton/>
-              <NavButton route="/login" className="!h-10 !px-6 !text-sm !shadow-none">
+ 
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <InstallButton />
+              <NavButton route="/login" className="!h-10 !px-2 !text-sm !shadow-none">
                 Log in
               </NavButton>
-              <ThemeToggle/>
+              <ThemeToggle />
             </Box>
           </Box>
         </Container>
