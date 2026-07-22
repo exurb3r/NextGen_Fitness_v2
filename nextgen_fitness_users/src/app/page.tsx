@@ -22,6 +22,7 @@ import { GymLogo } from "@/shared/MainIcon/MainIcon";
 import background from "@/assets/backgrounds/gymbackground.png";
 import NavButton from "../shared/Buttons/NavButton";
 import InstallButton from "@/components/installButton/InstallButton";
+import MyButton from "@/components/MainButton/Button";
 
 const FEATURES = [
   {
@@ -90,6 +91,13 @@ export default function Home() {
                 <Box component="span" sx={{ color: "text.primary" }}>
                   Fitness
                 </Box>
+
+                <MyButton>
+                  Enter
+                </MyButton>
+
+                
+
               </Typography>
             </Box>
  
